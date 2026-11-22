@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليلك</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(135deg, #0d6efd, #0043a8);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .gps-btn {
+            background-color: #20c997;
+            color: #000;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: 0.3s;
+        }
+        .gps-btn:hover {
+            background-color: #1aa179;
+            color: white;
+        }
+        .share-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .share-btn:hover {
+            background-color: white;
+            color: #0d6efd;
+        }
+        #locationStatus {
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #ffe69c;
+        }
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+        }
+        .search-box button {
+            background-color: #ffc107;
+            color: #000;
+            border: none;
+            padding: 0 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .search-box button:hover {
+            background-color: #e0a800;
+        }
+        .container {
+            max-width: 1050px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .cat-btn {
+            background: white;
+            border: 2px solid #0d6efd;
+            color: #0d6efd;
+            padding: 10px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+        .cat-btn.active, .cat-btn:hover {
+            background: #0d6efd;
+            color: white;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card span.tag {
+            background: #e7f1ff;
+            color: #0d6efd;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            align-self: flex-start;
+        }
+        .card h3 {
+            margin: 15px 0 10px;
+            font-size: 1.3rem;
+        }
+        .card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .map-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #198754;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .map-btn:hover {
+            background: #146c43;
+        }
+        footer {
+            background-color: #1e293b;
+            color: white;
+            padding: 25px 20px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        footer h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .emergency-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .emergency-item {
+            background-color: #334155;
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-weight: bold;
+            border: 1px solid #475569;
+            transition: 0.3s;
+        }
+        .emergency-item:hover {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📍 دليلك</h1>
+        <p>حدد موقعك الأول عشان نوصلك لأقرب خدمة حواليك بدقة</p>
+        
+        <div class="action-buttons">
+            <button class="gps-btn" onclick="getUserLocation()">📍 تحديد موقعي الحالي (GPS)</button>
+            <button class="share-btn" onclick="shareWebsite()">📤 شارك الموقع</button>
+        </div>
+        <div id="locationStatus">لم يتم تحديد الموقع بعد</div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="اكتب اسم الخدمة (مثلاً: سباك، مدرس، صيدلية، مطعم)..." onkeyup="filterServices()">
+            <button onclick="searchGoogleMaps()">ابحث الأقرب ليا</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="categories">
+            <button class="cat-btn active" onclick="filterCategory('all', this)">الكل</button>
+            <button class="cat-btn" onclick="filterCategory('صحة', this)">🏥 صحة وصيدليات</button>
+            <button class="cat-btn" onclick="filterCategory('أكل', this)">🍔 مطاعم وكافيهات</button>
+            <button class="cat-btn" onclick="filterCategory('يومية', this)">🛒 احتياجات يومية</button>
+            <button class="cat-btn" onclick="filterCategory('صيانة', this)">🔧 صيانة وسيارات</button>
+            <button class="cat-btn" onclick="filterCategory('طلاب', this)">🎓 خدمات طلابية</button>
+            <button class="cat-btn" onclick="filterCategory('متنوعة', this)">🏠 خدمات منزلية ومتنوعة</button>
+        </div>
+
+        <div class="services-grid" id="servicesContainer"></div>
+    </div>
+
+    <footer>
+        <h3>🚨 أرقام الطوارئ السريعة (اضغط للاتصال)</h3>
+        <div class="emergency-list">
+            <a href="tel:123" class="emergency-item">🚑 الإسعاف: 123</a>
+            <a href="tel:122" class="emergency-item">🚓 النجدة: 122</a>
+            <a href="tel:180" class="emergency-item">🚒 المطافي: 180</a>
+            <a href="tel:129" class="emergency-item">🔥 طوارئ الغاز: 129</a>
+            <a href="tel:121" class="emergency-item">⚡ طوارئ الكهرباء: 121</a>
+        </div>
+    </footer>
+
+    <script>
+        let userLat = null;
+        let userLng = null;
+
+        function getUserLocation() {
+            const statusText = document.getElementById("locationStatus");
+            
+            if (navigator.geolocation) {
+                statusText.innerText = "⏳ جاري تحديد موقعك...";
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        userLat = position.coords.latitude;
+                        userLng = position.coords.longitude;
+                        statusText.innerText = "✅ تم تحديد موقعك بنجاح! ابحث عن أي خدمة دلوقتي.";
+                        statusText.style.color = "#8affc1";
+                    },
+                    function(error) {
+                        statusText.innerText = "❌ مقدرناش نوصل لموقعك، تأكد إنك سمحت للمتصفح بالوصول للموقع (Allow).";
+                        statusText.style.color = "#ffadad";
+                    }
+                );
+            } else {
+                statusText.innerText = "المتصفح ده مش بيدعم خاصية تحديد الموقع.";
+            }
+        }
+
+        function shareWebsite() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'دليلك',
+                    text: 'جرب موقع دليلك بيساعدك تلاقي أقرب الخدمات والأماكن اللي حواليك بسهولة!',
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert("✅ تم نسخ رابط موقع دليلك! تقدر تبعته لأي حد دلوقتي.");
+            }
+        }
+
+    function openMapWithLocation(query) {
+            let url = "";
+            if (userLat !== null && userLng !== null) {
+                url = "https://google.com" + encodeURIComponent(query) + "/@" + userLat + "," + userLng + ",15z";
+            } else {
+                url = "https://google.com" + encodeURIComponent(query) + "+بالقرب+مني";
+            }
+            window.open(url, '_blank');
+        }
+
+        const services = [
+            { title: "أقرب صيدلية 24 ساعة", category: "صحة", desc: "أقرب صيدلية فاتحة دلوقتي حواليك.", query: "صيدلية" },
+            { title: "مستشفيات وطوارئ", category: "صحة", desc: "أقرب مستشفى أو مركز طبي للحالات الطارئة.", query: "مستشفى" },
+            { title: "مطاعم قريبة", category: "أكل", desc: "استكشف المطاعم المتاحة للتوصيل أو الأكل في المكان.", query: "مطعم" },
+            { title: "كافيهات وأماكن خروج", category: "أكل", desc: "أقرب الكافيهات الهادية أو أماكن القعدة.", query: "كافيه" },
+            { title: "سوبر ماركت وبقالة", category: "يومية", desc: "كل احتياجات البيت اليومية من أقرب ماركت.", query: "سوبر ماركت" },
+            { title: "مخابز وأفران", category: "يومية", desc: "أقرب فرن عيش أو مخبز حلويات.", query: "مخبز" },
+            { title: "سباك وصيانة صحية", category: "متنوعة", desc: "أقرب سباك لإصلاح الأعطال المنزلية السريعة.", query: "سباك" },
+            { title: "كهربائي منازل وتكييف", category: "متنوعة", desc: "فنيين كهرباء وصيانة أجهزة منزلية وتكييفات.", query: "كهربائي منازل" },
+            { title: "مدرسين ومراكز دروس", category: "متنوعة", desc: "أقرب سنتر تعليمي أو مدرسين لمختلف المواد.", query: "سنتر تعليمي" },
+            { title: "نجار وصيانة أثاث", category: "متنوعة", desc: "أقرب ورشة نجارة أو فني تصليح أخشاب وأقفال.", query: "نجار" },
+            { title: "ورش صيانة سيارات وبنزين", category: "صيانة", desc: "ميكانيكي، كهربائي سيارات، أو أقرب محطة بنزين.", query: "محطة بنزين" },
+            { title: "مكتبات تصوير وأدوات", category: "طلاب", desc: "أقرب مكتبة لطباعة الأبحاث وشراء الأدوات الدراسية.", query: "مكتبة تصوير" },
+            { title: "أماكن للمذاكرة (Workspaces)", category: "طلاب", desc: "مساحات عمل مشتركة هادية ومجهزة بالإنترنت.", query: "workspace" }
+        ];
+
+        const container = document.getElementById("servicesContainer");
+
+        function displayServices(list) {
+            container.innerHTML = "";
+            list.forEach(item => {
+                container.innerHTML += `
+                    <div class="card">
+                        <div>
+                            <span class="tag">${item.category}</span>
+                            <h3>${item.title}</h3>
+                            <p>${item.desc}</p>
+                        </div>
+                        <button onclick="openMapWithLocation('${item.query}')" class="map-btn">📍 اعرض الأقرب لموقعي</button>
+                    </div>
+                `;
+            });
+        }
+
+        function filterCategory(cat, btnElement) {
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            displayServices(cat === 'all' ? services : services.filter(s => s.category === cat));
+        }
+
+        function filterServices() {
+            const text = document.getElementById("searchInput").value.toLowerCase();
+            displayServices(services.filter(s => s.title.toLowerCase().includes(text) || s.desc.toLowerCase().includes(text) || s.category.toLowerCase().includes(text)));
+        }
+
+        function searchGoogleMaps() {
+            const text = document.getElementById("searchInput").value;
+            if (text.trim() !== "") openMapWithLocation(text);
+            else alert("اكتب اسم الحاجة اللي بتدور عليها الأول!");
+        }
+
+        displayServices(services);
+    </script>
+</body>
+</html>
